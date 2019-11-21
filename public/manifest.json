@@ -1,0 +1,12 @@
+{
+    "name": "First Bubble Tastea App",
+    "short_name": "Bubble Tastea",
+    "start_url": ".",
+    "display": "standalone",
+    "orientation": "portrait",
+    "dir": "ltr",
+    "lang": "en-US",
+    "icons": [
+        
+    ]
+}

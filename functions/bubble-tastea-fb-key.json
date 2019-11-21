@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "bubble-tastea-management",
+  "private_key_id": "4839fb5696119e29aa44ef633e3c0d700345d8aa",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDgE44/F4ETACYz\n5y6rX4bE/wiBmQahYsdMyk1nY0c8hPCe5bcp3K8TIyxzQL4xMLUrd7Lmg/iHBjFG\nDfop5JFMkJs3gYdn1x/+r06VCD/CdNPdE0JdvUXbVitK8Ay2+Gr/HhPfEP1rtSQ9\n+MTejwlzU60sUdvk550lBaKvDMOsRDybwZf1JJ+jQN/aOPTHXinEp1OIQzt5sbv4\n2fACItZeV6h0FnTVCXUtV8f2hMpaY3e+yNp+Sih4L/trlslY44lRtgelLl0l+mQl\njtz0rGj8z0rXe4d1/YfL/ytvzanqsDtkQiCQblIGxmrZZE6qje3uZBjAHN6qGPWp\nVjvdMEHDAgMBAAECggEACa+uuXl5oemivSGkOdJCUCe6JWgJClbryJ0CJZL8FFim\n0ieZ+FxK0Sf3FvBYiGXTnxJokGBqEOQqox2dj8wKn+WsYATgZpO9FVRcsEKQBwbn\n1amsd8Ljzyx1aKLh2dL5RRf2wfDJE6vb6jXjxL8oKG0Ykk7jk4yTlXMd6jVCDCM+\nR4btwh4CYRfYImPUDGoXwiNFmTxxRkIdmLdowknqukIAFEswAzH8WLwbwF1qxjtt\nC+5a8hdclaGYg/8eWUI8VJE9YIeCGoGNtjyP2lFqKxEOkckPMcRTZF32HrHDGQ0L\nXglKPz5fdMdw2hcTHFchJK6kai15EuED+TE9a+JlYQKBgQD3rnuK1BEFg+fL0dGt\nPycS20bQWXA41hOm4jNbysk6dV0H5WIlGX5u+QEr05ezHAiWKQewDrNi8fHg46sH\nQumHYSTplDpPU4dhLk4No1sg7psgpAo4vCjZg417rYcLFOEeacxfFIOT8CVfTKZT\naIsIApQMflvneiBnBd4SgPV/MwKBgQDnmh7OxjEbJwI34tDI0geK6ukTW3XMoPYz\nMdmARe2IYDFyiSsFgm72aoPtsSSm3OzLDVwPYHhwT+r0tJf1vV4TwlbtpvecgT5P\nV45VbZO+v+220ieSmsoA5y5SWqO2tUPqXhJUjDd9A0zzMamKiXeaqlGHtbNMRy+x\nOqDcLbVzMQKBgGwSYi2tYs/5QkcZAliJ2c7MhxWaMPFb169Vu/stfKhZVYKAgFaX\nzSc211/8L5EjhkufE4+qmnNuBpCORq4gcC12IdkZqGe8lrG8tqoUwUqZUm7npN4k\nm95tHGr+yJH5RlEy8M378X23p1bx5xE16JRSK69X41oZW9IYKVIBmx0pAoGBAIfp\nJqkbH1gaxS98mB8xOaHpBswIQRHLZ49VcpjW8HS2Vm4rVqbOC0Xp7e+/o42UWhUy\nitKvPx5Rl8TwcbiQ3zNjOVYPRIGASsuOywUQ38HxqZM+smBTG7X59HH5pNckem1/\ntOwOuMVQ+YhBnYeh8iE+T8f+9fAOWkt750guPqwRAoGAL1E4hOJJxuJiycZ/jttx\nEPzUZo0OBVW3sB6QyMXDiIZ6Xr0TiRWJnh0tm/3NUlvVggn10rytbIwpiPEETLkh\n+pQXvcVjPiRNAHH/9iucFN9xfUKfG4jhIH5WZaDnftE9KLIQY1J5KfyfEdkOwLxq\nzLS+zcM4ZIvzhtW9v2H5SiI=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-bfxou@bubble-tastea-management.iam.gserviceaccount.com",
+  "client_id": "103478874262335371440",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-bfxou%40bubble-tastea-management.iam.gserviceaccount.com"
+}
