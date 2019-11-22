@@ -46,7 +46,11 @@ exports.storeOrderTaiwan = functions.https.onRequest(function (request, response
                         }
                     };
 
-                    webpush.sendNotification(pushConfig, JSON.stringify({ title: 'New Update Order', content: 'New Order added' }))
+                    webpush.sendNotification(pushConfig, JSON.stringify({ 
+                        title: 'New Update Order', 
+                        content: 'New Order added',
+                        openUrl: '/offline'
+                    }))
                         .catch(function (err) {
                             console.log(err);
                         })
