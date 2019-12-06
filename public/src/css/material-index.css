@@ -1093,8 +1093,8 @@ pre code {
   position: relative;
   width: 100%;
   min-height: 1px;
-  padding-right: 15px;
-  padding-left: 15px;
+  padding-right: 30px;
+  padding-left: 30px;
 }
 
 .col {
@@ -1305,8 +1305,10 @@ pre code {
     max-width: 41.666667%;
   }
   .col-sm-6 {
-    flex: 0 0 50%;
-    max-width: 50%;
+    /* flex: 0 0 50%;
+    max-width: 50%; */
+    flex: 0 0 100%;
+    max-width: 100%;
   }
   .col-sm-7 {
     flex: 0 0 58.333333%;
@@ -1577,8 +1579,10 @@ pre code {
     max-width: 16.666667%;
   }
   .col-lg-3 {
-    flex: 0 0 25%;
-    max-width: 25%;
+    /* flex: 0 0 25%;
+    max-width: 25%; */
+    flex: 0 0 50%;
+    max-width: 50%;
   }
   .col-lg-4 {
     flex: 0 0 33.333333%;
@@ -4664,6 +4668,7 @@ tbody.collapse.show {
   margin-bottom: 0;
   background-color: #fff;
   border-bottom: 1px solid #eeeeee;
+  
 }
 
 .card-header:first-child {
@@ -10731,7 +10736,8 @@ fieldset[disabled][disabled] .btn-group-raised .btn,
 }
 
 .btn.btn-round {
-  border-radius: 30px;
+  border-radius: 9px;
+  padding: 0px 15px;
 }
 
 .btn.btn-fab,
@@ -15274,7 +15280,9 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 }
 
 .footer .copyright {
-  padding: 15px 0;
+  /* padding: 15px 0; */
+  text-align: center;
+  color: white;
 }
 
 .footer .copyright .material-icons {
@@ -15296,7 +15304,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
 
 @media screen and (min-width: 768px) {
   .footer .copyright {
-    padding-right: 15px;
+    /* padding-right: 15px; */
   }
 }
 
@@ -15316,6 +15324,71 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   background: #fff;
   box-shadow: 0 16px 38px -12px rgba(0, 0, 0, 0.56),
     0 4px 25px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-new {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 2; /* Stay on top */
+  top: 0;
+  left: 0;
+  background-color: #111; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+}
+
+/* The sidebar links */
+.sidebar-new a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidebar-new .nav .nav-item a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidebar-new .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.sidebar-new a:hover {
+  color: #f1f1f1;
+}
+
+/* The button used to open the sidebar */
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  /* background-color: #111; */
+  color: white;
+  padding: 10px 0px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar {
+    padding-top: 15px;
+  }
+  .sidebar a {
+    font-size: 18px;
+  }
 }
 
 .sidebar .caret {
@@ -15818,16 +15891,24 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   background: rgba(200, 200, 200, 0.2);
 }
 
+#main {
+  transition: margin-left .5s; /* If you want a transition effect */
+  padding: 10px 0px;
+}
+
 .main-panel {
+  /* position: relative; */
   position: relative;
   float: right;
-  width: calc(100% - 260px);
-  transition: 0.33s, cubic-bezier(0.685, 0.0473, 0.346, 1);
+  overflow: hidden;
+  z-index: 1;
+  /* width: calc(100% - 260px); */
+  /* transition: 0.33s, cubic-bezier(0.685, 0.0473, 0.346, 1); */
 }
 
 .main-panel > .content {
   margin-top: 70px;
-  padding: 30px 15px;
+  /* padding: 30px 15px; */
   min-height: calc(100vh - 123px);
 }
 
@@ -17664,7 +17745,8 @@ label {
   margin-top: 30px;
   border-radius: 6px;
   color: #333333;
-  background: #da7529;
+  /* background: #da7529; */
+  background: #d67833;
   width: 100%;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2),
     0 1px 5px 0 rgba(0, 0, 0, 0.12);
@@ -18184,7 +18266,7 @@ label {
 .card [class*="card-header-"] .card-icon,
 .card [class*="card-header-"] .card-text {
   border-radius: 75%;
-  background-color: #999999;
+  background-color: #57256e;
   padding: 15px;
   margin-top: -20px;
   margin-right: 15px;
@@ -18372,6 +18454,7 @@ label {
 .card-stats .card-header .card-category:not([class*="text-"]) {
   color: #ffffff;
   font-size: 14px;
+  padding: 10px 0px 0px;
 }
 
 .card-stats .card-header + .card-footer {
@@ -19922,7 +20005,6 @@ label {
     display: none !important;
   }
 }
-
 
 .enable-notifications {
   display: none;
