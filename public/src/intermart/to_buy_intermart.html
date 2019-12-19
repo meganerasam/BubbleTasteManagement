@@ -15,6 +15,9 @@
     <link rel="stylesheet" type="text/css"
         href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
     <!-- CSS Files -->
     <link href="/src/css/material-index.css" rel="stylesheet" />
 
@@ -214,163 +217,38 @@
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive" id="intermart_table">
+                                    <table class="table" id="table_intermart">
+                                        <thead>
+                                            <th>Item</th>
+                                            <th>Stock</th>
+                                            <th>To Buy</th>
+                                        </thead>
+                                    </table>
 
                                 </div>
-                                <div style="text-align:end">
+                                <!-- <div style="text-align:end">
                                     <button class="btn btn-add" id="add_button" onclick="addRow()">
                                         +
                                     </button>
-                                </div>
+                                </div> -->
                                 <div style="text-align-last: center" class="wrap">
-                                    <button class="btn btn-save"
-                                        style="background:linear-gradient(60deg, #ab47bc, #8e24aa)">Send</button>
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"
+                                        onclick="placeOrder()"
+                                        style="background:linear-gradient(60deg, #ab47bc, #8e24aa)">Preview Order
+                                    </button>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="card card-plain">
-                            <div class="card-header card-header-primary">
-                                <h4 class="card-title mt-0"> Table on Plain Background</h4>
-                                <p class="card-category"> Here is a subtitle for this table</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-hover">
-                                        <thead class="">
-                                            <th>
-                                                ID
-                                            </th>
-                                            <th>
-                                                Name
-                                            </th>
-                                            <th>
-                                                Country
-                                            </th>
-                                            <th>
-                                                City
-                                            </th>
-                                            <th>
-                                                Salary
-                                            </th>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    1
-                                                </td>
-                                                <td>
-                                                    Dakota Rice
-                                                </td>
-                                                <td>
-                                                    Niger
-                                                </td>
-                                                <td>
-                                                    Oud-Turnhout
-                                                </td>
-                                                <td>
-                                                    $36,738
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    2
-                                                </td>
-                                                <td>
-                                                    Minerva Hooper
-                                                </td>
-                                                <td>
-                                                    Curaçao
-                                                </td>
-                                                <td>
-                                                    Sinaai-Waas
-                                                </td>
-                                                <td>
-                                                    $23,789
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    3
-                                                </td>
-                                                <td>
-                                                    Sage Rodriguez
-                                                </td>
-                                                <td>
-                                                    Netherlands
-                                                </td>
-                                                <td>
-                                                    Baileux
-                                                </td>
-                                                <td>
-                                                    $56,142
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    4
-                                                </td>
-                                                <td>
-                                                    Philip Chaney
-                                                </td>
-                                                <td>
-                                                    Korea, South
-                                                </td>
-                                                <td>
-                                                    Overland Park
-                                                </td>
-                                                <td>
-                                                    $38,735
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    5
-                                                </td>
-                                                <td>
-                                                    Doris Greene
-                                                </td>
-                                                <td>
-                                                    Malawi
-                                                </td>
-                                                <td>
-                                                    Feldkirchen in Kärnten
-                                                </td>
-                                                <td>
-                                                    $63,542
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    6
-                                                </td>
-                                                <td>
-                                                    Mason Porter
-                                                </td>
-                                                <td>
-                                                    Chile
-                                                </td>
-                                                <td>
-                                                    Gloucester
-                                                </td>
-                                                <td>
-                                                    $78,615
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
+
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
+
         <!-- Footer -->
         <div id="load-footer"></div>
         <!-- End of footer-->
-
     </div>
 
     <!--   Core JS Files   -->
@@ -600,6 +478,11 @@
             document.getElementById('number' + x).value = value;
         }
     </script>
+    <script>
+        $(document).ready(function () {
+            $('#modal-close-btn').modal('hide');
+        })
+    </script>
 
     <svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg"
         version="1.1">
@@ -612,8 +495,48 @@
             </filter>
         </defs>
     </svg>
+
+    <script src="/src/js/promise.js"></script>
+    <script src="/src/js/fetch.js"></script>
+    <script src="/src/js/idb.js"></script>
+    <script src="/src/js/utility.js"></script>
+    <script src="/src/js/app.js"></script>
+    <script src="/src/intermart/to_buy_intermart.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">Summary shopping list Intermart</h4>
+                    <button type="button" id="modal-close-btn" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modal-body-content">
+                    <table class="table" id="table_modal">
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" value="Close">Back</button>
+                    <button type="button" class="btn btn-primary" id="place-order-btn">Place Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
-<script src="/src/intermart/to_buy_intermart.js"></script>
+
 
 </html>
