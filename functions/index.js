@@ -46,8 +46,8 @@ exports.storeOrderTaiwan = functions.https.onRequest(function (request, response
                         }
                     };
 
-                    webpush.sendNotification(pushConfig, JSON.stringify({ 
-                        title: 'New Update Order', 
+                    webpush.sendNotification(pushConfig, JSON.stringify({
+                        title: 'New Update Order',
                         content: 'New Order added',
                         openUrl: '/offline'
                     }))
@@ -63,3 +63,5 @@ exports.storeOrderTaiwan = functions.https.onRequest(function (request, response
             })
     })
 });
+
+

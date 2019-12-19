@@ -3362,14 +3362,14 @@ input[type="button"].btn-block {
   width: 100%;
 }
 
-.fade {
+/* .fade {
   opacity: 0;
   transition: opacity 0.15s linear;
 }
 
 .fade.show {
   opacity: 1;
-}
+} */
 
 .collapse {
   display: none;
@@ -5547,7 +5547,7 @@ button.close {
   background-color: #1d2124;
 }
 
-.modal-open {
+/* .modal-open {
   overflow: hidden;
 }
 
@@ -5692,7 +5692,7 @@ button.close {
   .modal-lg {
     max-width: 800px;
   }
-}
+} */
 
 .tooltip {
   position: absolute;

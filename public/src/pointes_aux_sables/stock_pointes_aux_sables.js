@@ -1,27 +1,28 @@
 var arrHead = new Array();
-var url = "https://bubble-tastea-management.firebaseio.com/Item.json"
+var url = "https://bubble-tastea-management.firebaseio.com/AllStock.json"
 var networkDataReceived = false;
 
 arrHead = ['Name', 'Category', 'Quantity'];
 
 // Create table structure (create table + headers)
 function createTable(data) {
-    var empTable = document.createElement('table');
-    empTable.setAttribute('class', 'table');// SET THE TABLE CLASS.
-    empTable.setAttribute('id', 'table_pas');
 
-    var header = empTable.createTHead();
-    var tr = header.insertRow(-1);
+    // var empTable = document.createElement('table');
+    // empTable.setAttribute('class', 'table');// SET THE TABLE CLASS.
+    // empTable.setAttribute('id', 'table_pas');
 
-    for (var h = 0; h < arrHead.length; h++) {
-        var th = document.createElement('th');// TABLE HEADER.       
-        th.innerHTML = arrHead[h];
+    // var header = empTable.createTHead();
+    // var tr = header.insertRow(-1);
 
-        tr.appendChild(th);
-    }
+    // for (var h = 0; h < arrHead.length; h++) {
+    //     var th = document.createElement('th');// TABLE HEADER.       
+    //     th.innerHTML = arrHead[h];
 
-    var div = document.getElementById('pointes_aux_sables_table');
-    div.appendChild(empTable);// ADD THE TABLE TO YOUR WEB PAGE.
+    //     tr.appendChild(th);
+    // }
+
+    // var div = document.getElementById('pointes_aux_sables_table');
+    // div.appendChild(empTable);// ADD THE TABLE TO YOUR WEB PAGE.
 
     var tableName = document.getElementById('table_pas');
     var tbody = document.createElement('tbody');
@@ -31,15 +32,17 @@ function createTable(data) {
         // add record to each row
         var tr = document.createElement('tr');
 
-        //add record for each cell
-        addCell(tr, data[i].name);
-        addCell(tr, data[i].category);
-        addCell(tr, data[i].quantity);
+        if ((data[i].category !== 'Call') && (data[i].category !== 'Intermart')) {
+            //add record for each cell
+            addCell(tr, data[i].name);
+            addCell(tr, data[i].category);
+            addCell(tr, data[i].quantity);
 
-        //add the row with all its content to the tbody tag
-        tbody.appendChild(tr);
-        //add all element of the tbody into the table itself
-        tableName.appendChild(tbody);
+            //add the row with all its content to the tbody tag
+            tbody.appendChild(tr);
+            //add all element of the tbody into the table itself
+            tableName.appendChild(tbody);
+        }
     }
 
     var parent;
@@ -49,6 +52,7 @@ function createTable(data) {
 
     // call makeSortable method to allow sorting on header click
     while (--z >= 0) makeSortable(t[z]);
+
 }
 
 function makeSortable(table) {
@@ -108,9 +112,9 @@ if ('indexedDB' in window) {
             console.log("readAllData from spas.js (indexedDB)");
             if (!networkDataReceived) {
                 //console.log('From cache', data);
-                if (document.getElementById('table_pas') != 'undefined' && document.getElementById('table_pas') != null){            
+                if (document.getElementById('table_pas') != 'undefined' && document.getElementById('table_pas') != null) {
                 }
-                else{
+                else {
                     createTable(data);
                 }
             }

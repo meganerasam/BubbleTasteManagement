@@ -1,69 +1,69 @@
 var arrHead = new Array();
-
-// var url = "https://bubble-tastea-management.firebaseio.com/Item.json"
-// var networkDataReceived = false;
+var url = "https://bubble-tastea-management.firebaseio.com/AllStock.json"
+var networkDataReceived = false;
+var listOrder = [];
 
 arrHead = ['Name', 'Quantity', 'Action'];
 
 // Create table structure (create table + headers)
-function createTable() {
+function createTable(data) {
+    console.log("createtable");
 
-    if ($('table#table_intermart').length) {
-        alert('exists');
-    }
-    else {
-        var empTable = document.createElement('table');
-        empTable.setAttribute('class', 'table');// SET THE TABLE CLASS.
-        empTable.setAttribute('id', 'table_intermart');
+    // if ($('table#table_intermart').length) {
+    //     alert('exists');
+    // }
+    //else {
+    // var empTable = document.createElement('table');
+    // empTable.setAttribute('class', 'table');// SET THE TABLE CLASS.
+    // empTable.setAttribute('id', 'table_intermart');
 
-        var theader = empTable.createTHead();
-        var tbody = empTable.createTBody();
-        tbody.setAttribute('id', 'tabBody');
+    // var theader = empTable.createTHead();
+    // var tbody = empTable.createTBody();
+    // tbody.setAttribute('id', 'tabBody');
 
-        var tr = theader.insertRow(-1);
+    // var tr = theader.insertRow(-1);
 
-        for (var h = 0; h < arrHead.length; h++) {
-            var th = document.createElement('th');// TABLE HEADER.       
-            th.innerHTML = arrHead[h];
+    // for (var h = 0; h < arrHead.length; h++) {
+    //     var th = document.createElement('th');// TABLE HEADER.       
+    //     th.innerHTML = arrHead[h];
 
-            tr.appendChild(th);
+    //     tr.appendChild(th);
+    // }
+
+    // var div = document.getElementById('intermart_table');
+    // div.appendChild(empTable);// ADD THE TABLE TO YOUR WEB PAGE.
+
+    var tableName = document.getElementById('table_intermart');
+    var tbody = document.createElement('tbody');
+    tbody.setAttribute('id', 'tabBody');
+
+    //add data to each row
+    for (var i = 0; i < data.length; i++) {
+        // add record to each row
+        var tr = document.createElement('tr');
+
+        if (data[i].category === 'Intermart') {
+            //add record for each cell
+            addCell(tr, 'a', data[i].name);
+            addCell(tr, 'b', data[i].quantity);
+            addCell(tr, 'c', data[i].id);
+
+            //add the row with all its content to the tbody tag
+            tbody.appendChild(tr);
+            //add all element of the tbody into the table itself
+            tableName.appendChild(tbody);
+
+            tbody.addEventListener('click', myFunction);
         }
-
-        var div = document.getElementById('intermart_table');
-        div.appendChild(empTable);// ADD THE TABLE TO YOUR WEB PAGE.
-
-        var tableName = document.getElementById('table_intermart');
-        tableName.appendChild(tbody);
-
-        console.log("no tr in tbody = " + $('#tabBody tr').length);
-
-
-        // //add data to each row
-        // for (var i = 0; i < data.length; i++) {
-        //     // add record to each row
-        //     var tr = document.createElement('tr');
-
-        //     //add record for each cell
-        //     addCell(tr, data[i].name);
-        //     addCell(tr, data[i].category);
-        //     addCell(tr, data[i].quantity);
-
-        //     //add the row with all its content to the tbody tag
-        //     tbody.appendChild(tr);
-        //     //add all element of the tbody into the table itself
-        //     tableName.appendChild(tbody);
-        // }
-
-        // var parent;
-        // parent = parent || document.body;
-        // var t = parent.getElementsByTagName('table');
-        // var z = t.length;
-
-        // // call makeSortable method to allow sorting on header click
-        // while (--z >= 0) makeSortable(t[z]);
-
-        tbody.addEventListener('click', myFunction);
     }
+
+    var parent;
+    parent = parent || document.body;
+    var t = parent.getElementsByTagName('table');
+    var z = t.length;
+
+    // call makeSortable method to allow sorting on header click
+    while (--z >= 0) makeSortable(t[z]);
 }
 
 var idNum = 1;
@@ -73,10 +73,6 @@ function addRow() {
     var tabBody = document.getElementById('tabBody');
     var tr = document.createElement('tr');
     tr.setAttribute('id', 'rowNo' + idNum);
-
-    //var countRow = tabName.getElementsByTagName('tr').length;
-    //console.log("countRow = " + countRow);
-    console.log("countRow = " + idNum);
 
     var itemName = document.createElement('input');
     itemName.setAttribute('type', 'text');
@@ -90,134 +86,247 @@ function addRow() {
     var lastTr = tabBody.lastChild.id;
     console.log("last child = " + lastTr);
 
-
     tabName.appendChild(tabBody);
 
     idNum++;
 }
 
-function addCell(tr, val, row) {
-    var tabName = document.getElementById('table_intermart');
-    var tabBody = document.getElementById('tabBody');
+function addCell(tr, cellPlace, val) {
     var td = document.createElement('td');
-
-    if (val == 'a') {
-        var div = document.createElement('div');
-        div.setAttribute('class', 'form-group');
-        var itemName = document.createElement('input');
-        itemName.setAttribute('type', 'text');
-        itemName.setAttribute('id', 'input_item_name' + row);
-        itemName.setAttribute('placeholder', 'Item Name ...');
-
-        div.appendChild(itemName);
-        td.appendChild(div);
+    if (cellPlace == 'a') {
+        td.setAttribute('id', 'item-name');
+        td.innerHTML = val;
     }
-    else if (val == 'b') {
+    else if (cellPlace == 'b') {
+        td.setAttribute('id', 'item-quantity');
+        td.innerHTML = val;
+    }
+    else if (cellPlace == 'd') {
+        td.setAttribute('id', 'item-order');
+        td.innerHTML = val;
+    }
+    else if (cellPlace == 'c') {
+        var div = document.createElement('div');
+        div.setAttribute('style', 'min-width:90px');
         var form = document.createElement('form');
 
         var divDecr = document.createElement('div');
         divDecr.setAttribute('class', 'value-button');
-        divDecr.setAttribute('id', 'decrease' + row);
+        divDecr.setAttribute('id', 'decrease' + val);
         divDecr.innerHTML = '-';
-
-        // var divDecr = document.createElement('button');
-        // divDecr.setAttribute('class', 'value-button');
-        // divDecr.setAttribute('id', 'decrease' + row);
-        // divDecr.innerHTML = '-';
 
         form.appendChild(divDecr);
 
-        //console.log("qty = " + qty.value);
-
         var qty = document.createElement('input');
         qty.setAttribute('type', 'number');
-        qty.setAttribute('id', 'number' + row);
+        qty.setAttribute('id', 'number' + val);
         qty.setAttribute('value', 0);
         form.appendChild(qty);
 
         var divIncr = document.createElement('div');
         divIncr.setAttribute('class', 'value-button');
-        divIncr.setAttribute('id', 'increase' + row);
+        divIncr.setAttribute('id', 'increase' + val);
         divIncr.innerHTML = '+';
-        //divIncr.addEventListener('click', increaseValue(row));
-
-        // var divIncr = document.createElement('button');
-        // divIncr.setAttribute('class', 'value-button');
-        // divIncr.setAttribute('id', 'increase' + row);
-        // divIncr.innerHTML = '+';
-        //divIncr.addEventListener('click', increaseValue(row, qty.value));
 
         form.appendChild(divIncr);
-
-        td.appendChild(form);
-
-        // var div = document.createElement('div');
-
-        // var buttonD = document.createElement('button');
-        // buttonD.setAttribute('class', 'value-button-d');
-        // buttonD.setAttribute('id', 'decrease_button' + row);
-        // div.appendChild(buttonD);
-
-        // var qty = document.createElement('input');
-        // qty.setAttribute('type', 'number');
-        // qty.setAttribute('id', 'number' + row);
-        // qty.setAttribute('value', 0);
-        // div.appendChild(qty);
-
-        // var buttonI = document.createElement('button');
-        // buttonI.setAttribute('class', 'value-button-i');
-        // buttonI.setAttribute('id', 'increase_button' + row);
-        // div.appendChild(buttonI);
-
-        // td.appendChild(div);
-    }
-    else {
-        var div = document.createElement('div');
-        div.setAttribute('id', 'div_btn_del');
-        var delAction = document.createElement('button');
-        delAction.setAttribute('class', 'btn btn-del');
-
-        var i = document.createElement('i');
-        i.setAttribute('class', 'material-icons');
-        i.setAttribute('id', 'del_button' + row);
-        i.innerHTML = "clear";
-        delAction.appendChild(i);
-
-        div.appendChild(delAction);
+        div.appendChild(form);
         td.appendChild(div);
-
-        //td.innerHTML = val;
     }
 
-    tr.appendChild(td);
-    tabBody.appendChild(tr);
-    tabName.appendChild(tabBody);
-
+    tr.appendChild(td)
 }
+
+function addCellModal(tr, val) {
+    var td = document.createElement('td');
+
+    td.innerHTML = val;
+
+    tr.appendChild(td)
+}
+
+// call this function once the tbody exist to any quantity cell in each row will be clickable
+// function myFunction(event) {
+//     var x = event.target;
+
+//     if (x.className == 'value-button') {
+//         var idEvt = x.id;
+//         // start letter is to know if we perform a decrease or an increase
+//         var start = idEvt[0];
+//         // num is to search for the id to which the increase/decrease operation will be performed
+//         // the last character in the number(n)/decrease(n)
+//         // var num = idEvt[idEvt.length - 1];
+//         var num = idEvt.substring(idEvt.length - 4);
+//         console.log('idEvt ' + num);
+//         var val = parseInt(document.getElementById('number' + num).value, 10);
+
+//         // is id-name start is 'i', we are increasng the current value
+//         if (start == 'i') {
+//             val = isNaN(val) ? 0 : val;
+//             val++;
+//             document.getElementById('number' + num).value = val;
+//         }
+//         // else, it starts with 'd' then we are decreasing the current value
+//         else {
+//             console.log("val before = " + val);
+//             val = isNaN(val) ? 0 : val;
+//             val < 1 ? value = 1 : '';
+//             // check if current value is equal to 0
+//             // if so, the value shall remain 0 as it cannot be negative
+//             if (val == 0) {
+//                 document.getElementById('number' + num).value = val;
+//             }
+//             // else, decrease the current value by 1
+//             else {
+//                 val--;
+//                 document.getElementById('number' + num).value = val;
+//             }
+//         }
+//     }
+//     // else if (x.className == 'btn btn-save') {
+//     //     //document.getElementById("demo").innerHTML = "NOT CLASSNAME";
+//     //     //console.log(x.id);
+//     //     var table = document.getElementsByTagName(tbody);
+//     //     var rowNb = table.length;
+
+//     //     console.log("nb of row in body = " + rowNb);
+
+//     //     // console.log("before = " + rows.length);
+//     //     // console.log("to be deleted = " + currRow);
+
+//     //     //x.closest('tr').remove();
+//     // }
+// }
+
+
+
+
+// function addCell(tr, val) {
+//     var td = document.createElement('td');
+
+//     td.innerHTML = val;
+
+//     tr.appendChild(td)
+// }
+
+// function addCell(tr, val, row) {
+//     var tabName = document.getElementById('table_intermart');
+//     var tabBody = document.getElementById('tabBody');
+//     var td = document.createElement('td');
+
+//     if (val == 'a') {
+//         var div = document.createElement('div');
+//         div.setAttribute('class', 'form-group');
+//         var itemName = document.createElement('input');
+//         itemName.setAttribute('type', 'text');
+//         itemName.setAttribute('id', 'input_item_name' + row);
+//         itemName.setAttribute('placeholder', 'Item Name ...');
+
+//         div.appendChild(itemName);
+//         td.appendChild(div);
+//     }
+//     else if (val == 'b') {
+//         var form = document.createElement('form');
+
+//         var divDecr = document.createElement('div');
+//         divDecr.setAttribute('class', 'value-button');
+//         divDecr.setAttribute('id', 'decrease' + row);
+//         divDecr.innerHTML = '-';
+
+//         // var divDecr = document.createElement('button');
+//         // divDecr.setAttribute('class', 'value-button');
+//         // divDecr.setAttribute('id', 'decrease' + row);
+//         // divDecr.innerHTML = '-';
+
+//         form.appendChild(divDecr);
+
+//         //console.log("qty = " + qty.value);
+
+//         var qty = document.createElement('input');
+//         qty.setAttribute('type', 'number');
+//         qty.setAttribute('id', 'number' + row);
+//         qty.setAttribute('value', 0);
+//         form.appendChild(qty);
+
+//         var divIncr = document.createElement('div');
+//         divIncr.setAttribute('class', 'value-button');
+//         divIncr.setAttribute('id', 'increase' + row);
+//         divIncr.innerHTML = '+';
+//         //divIncr.addEventListener('click', increaseValue(row));
+
+//         // var divIncr = document.createElement('button');
+//         // divIncr.setAttribute('class', 'value-button');
+//         // divIncr.setAttribute('id', 'increase' + row);
+//         // divIncr.innerHTML = '+';
+//         //divIncr.addEventListener('click', increaseValue(row, qty.value));
+
+//         form.appendChild(divIncr);
+
+//         td.appendChild(form);
+
+//         // var div = document.createElement('div');
+
+//         // var buttonD = document.createElement('button');
+//         // buttonD.setAttribute('class', 'value-button-d');
+//         // buttonD.setAttribute('id', 'decrease_button' + row);
+//         // div.appendChild(buttonD);
+
+//         // var qty = document.createElement('input');
+//         // qty.setAttribute('type', 'number');
+//         // qty.setAttribute('id', 'number' + row);
+//         // qty.setAttribute('value', 0);
+//         // div.appendChild(qty);
+
+//         // var buttonI = document.createElement('button');
+//         // buttonI.setAttribute('class', 'value-button-i');
+//         // buttonI.setAttribute('id', 'increase_button' + row);
+//         // div.appendChild(buttonI);
+
+//         // td.appendChild(div);
+//     }
+//     else {
+//         var div = document.createElement('div');
+//         div.setAttribute('id', 'div_btn_del');
+//         var delAction = document.createElement('button');
+//         delAction.setAttribute('class', 'btn btn-del');
+
+//         var i = document.createElement('i');
+//         i.setAttribute('class', 'material-icons');
+//         i.setAttribute('id', 'del_button' + row);
+//         i.innerHTML = "clear";
+//         delAction.appendChild(i);
+
+//         div.appendChild(delAction);
+//         td.appendChild(div);
+
+//         //td.innerHTML = val;
+//     }
+
+//     tr.appendChild(td);
+//     tabBody.appendChild(tr);
+//     tabName.appendChild(tabBody);
+
+// }
 
 // call this function once the tbody exist to any quantity cell in each row will be clickable
 function myFunction(event) {
     var x = event.target;
-    console.log("current element clicked = " + x.id);
 
     if (x.className == 'value-button') {
-        //console.log("clicked a value-button class");
         var idEvt = x.id;
         // start letter is to know if we perform a decrease or an increase
         var start = idEvt[0];
         // num is to search for the id to which the increase/decrease operation will be performed
         // the last character in the number(n)/decrease(n)
-        var num = idEvt[idEvt.length - 1];
+        var num = idEvt.substring(idEvt.length - 4);
+        console.log("current element clicked = " + num);
         var val = parseInt(document.getElementById('number' + num).value, 10);
 
         console.log("id = " + x.id + " last digit = " + num + " start = " + start);
 
         // is id-name start is 'i', we are increasng the current value
         if (start == 'i') {
-            //console.log("val before = " + val);
             val = isNaN(val) ? 0 : val;
             val++;
-            //console.log("val after = " + val);
             document.getElementById('number' + num).value = val;
         }
         // else, it starts with 'd' then we are decreasing the current value
@@ -233,20 +342,14 @@ function myFunction(event) {
             // else, decrease the current value by 1
             else {
                 val--;
-                //console.log("val after = " + val);
                 document.getElementById('number' + num).value = val;
             }
         }
     }
     else if (x.className == 'material-icons') {
-        //document.getElementById("demo").innerHTML = "NOT CLASSNAME";
-        //console.log(x.id);
         var currRow = x.id[x.id.length - 1];
         var table = document.getElementById('tabBody');
         var rows = table.getElementsByTagName('tr');
-
-        // console.log("before = " + rows.length);
-        // console.log("to be deleted = " + currRow);
 
         x.closest('tr').remove();
     }
@@ -258,13 +361,6 @@ function increaseValue(x) {
     value = isNaN(value) ? 0 : value;
     value++;
     document.getElementById('number' + x).value = value;
-    // var qty = document.getElementById('number' + x);
-    // val = isNaN(val) ? 0 : val;
-    // val++;
-    // //document.getElementById('number' + x).value = val;
-    // qty.innerHTML = val;
-
-    console.log("increase = " + x + "val = " + value);
 }
 
 function decreaseValue(x) {
@@ -274,11 +370,6 @@ function decreaseValue(x) {
     value < 1 ? value = 1 : '';
     value--;
     document.getElementById('number' + x).value = value;
-
-    // var element = document.getElementById('number' + x);
-    // var currQty = element.value;
-
-    // console.log(currQty);
 }
 
 function makeSortable(table) {
@@ -309,6 +400,136 @@ function makeSortable(table) {
 
 }
 
+function placeOrder() {
+    var table_body = document.getElementById('tabBody');
+    var input_row = table_body.getElementsByTagName('input');
+    var name_item, qty_item, to_order_item;
+    var rowNb = input_row.length;
+    var noOrder = 0;
+
+
+    //Go through all the rows in the table and check if there is any order placed
+    //for any given item
+    for (var i = 0; i < rowNb; i++) {
+        name_item = table_body.rows[i].cells[0].innerText;
+        qty_item = table_body.rows[i].cells[1].innerText;
+        to_order_item = input_row[i].value;
+
+        //If the input box is not 0, then we should put this item in the array of 
+        //item to buy
+        if (to_order_item > 0 || (listOrder.findIndex((e) => e.name === name_item) !== -1)) {
+            var obj = { name: name_item, quantity: to_order_item };
+            //Before adding any element into the table, check if item as already been added
+            //to the cart or not
+            pushToArray(listOrder, obj);
+        }
+    }
+
+    console.log("Length " + listOrder.length);
+
+    if (document.contains(document.getElementById('tabBodyModal'))) {
+        document.getElementById('tabBodyModal').remove();
+    }
+    if (document.contains(document.getElementById('divEmpty'))) {
+        document.getElementById('divEmpty').remove();
+        document.getElementById('place-order-btn').disabled = false;
+        document.getElementById('place-order-btn').setAttribute('style', 'background-color: #9c27b0');
+    }
+
+    if (listOrder.length > 0) {
+            var j;
+            var tableNameModal = document.getElementById('table_modal');
+            var tbodyModal = document.createElement('tbody');
+            tbodyModal.setAttribute('id', 'tabBodyModal');
+
+            //add data to each row
+            for (j = 0; j < listOrder.length; j++) {
+
+                // add record to each row
+                var tr = document.createElement('tr');
+
+                //add record for each cell
+                addCellModal(tr, listOrder[j].name);
+                addCellModal(tr, listOrder[j].quantity);
+                addCellModal(tr, " ");
+
+                //add the row with all its content to the tbody tag
+                tbodyModal.appendChild(tr);
+                //add all element of the tbody into the table itself
+                tableNameModal.appendChild(tbodyModal);
+
+                tbodyModal.addEventListener('click', myFunction);
+            }
+        //}
+    }
+    else {
+        var divText = document.createElement('div');
+        divText.setAttribute('id', 'divEmpty');
+        var text = document.createTextNode("Shopping list is empty");
+        var div = document.getElementById('modal-body-content');
+        divText.appendChild(text);
+        div.appendChild(divText);
+
+        document.getElementById('place-order-btn').disabled = true;
+        document.getElementById('place-order-btn').setAttribute('style', 'background-color: grey');
+    }
+}
+
+function pushToArray(arr, obj) {
+    var index = arr.findIndex((e) => e.name === obj.name);
+
+    //If item has not already been added to the cart (listOrder array), add item to array
+    if (index === -1) {
+        arr.push(obj);
+    }
+    //Else if item already exists, only change its qty
+    else {       
+        //if the item was already added to the cart but then its value has been reset to 0
+        //remove it from the array  
+        if (obj.quantity == 0) {
+            for (var z = 0; z < arr.length; z++) {
+                if (arr[z].name === obj.name) {
+                    arr.splice(z, 1);
+                    z--;
+                }
+            }
+            console.log("length after slice " + arr.length);
+        }
+        //else if the value has only been modified, just replace the old with the new
+        else {
+            arr[index] = obj;
+        }
+    }
+}
+
+fetch(url)
+    .then(function (res) {
+        return res.json();
+    })
+    .then(function (data) {
+        networkDataReceived = true;
+        console.log('From web', data);
+        var dataArray = [];
+        for (key in data) {
+            dataArray.push(data[key]);
+        }
+        createTable(dataArray);
+    });
+
+if ('indexedDB' in window) {
+    readAllData('pas')
+        .then(function (data) {
+            console.log("readAllData from spas.js (indexedDB)");
+            if (!networkDataReceived) {
+                console.log('From cache', data);
+                if (document.getElementById('table_intermart') != 'undefined' && document.getElementById('table_intermart') != null) {
+                }
+                else {
+                    createTable(data);
+                }
+            }
+        });
+}
 
 // fetch(url)
 //     .then(function (res) {
