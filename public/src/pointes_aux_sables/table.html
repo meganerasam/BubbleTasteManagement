@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Data Tables</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+    <link title="compact" href="/src/css/material-index.css" rel="stylesheet" />
+
+    <style>
+        table.dataTable tbody tr {
+            background-color: #d67833;
+        }
+
+        th,
+        #myTable_info,
+        label {
+            color: blanchedalmond;
+        }
+
+        input[type=search] {
+            border: 2px solid #9c27b0;
+            border-radius: 4px;
+        }
+
+        .paginate_button.next,
+        .paginate_button.previous {
+            color: #fff;
+            background-color: #9c27b0;
+            border-color: #9c27b0;
+            box-shadow: 0 2px 2px 0 rgba(156, 39, 176, 0.14),
+                0 3px 1px -2px rgba(156, 39, 176, 0.2), 0 1px 5px 0 rgba(156, 39, 176, 0.12);
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+            color: #fff;
+            background: #c7a9cc;
+            border-color: #9c27b0;
+            box-shadow: 0 2px 2px 0 rgba(156, 39, 176, 0.14),
+                0 3px 1px -2px rgba(156, 39, 176, 0.2), 0 1px 5px 0 rgba(156, 39, 176, 0.12);
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            border-radius: 4px;
+            border-color: #9c27b0;
+        }
+
+        .dataTables_wrapper .dataTables_paginate .paginate_button.current {
+            border-radius: 4px;
+            border-color: #9c27b0;
+        }
+
+        select[name="myTable_length"] {
+            border-radius: 4px;
+            border-color: #9c27b0;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <h4 class="card-title ">Current Stock At Pointes Aux Sables</h4>
+                            <p class="card-category" id="date"></p>
+                            <script>
+                                n = new Date();
+                                y = n.getFullYear();
+                                m = n.getMonth(); + 1;
+                                d = n.getDate();
+
+                                document.getElementById("date").innerHTML = d + "/" + m + "/" + y;
+                            </script>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive" id="pointes_aux_sables_table">
+                                <table class="table table-fluid" id="myTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Password</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tableBody">
+
+                                    </tbody>
+                                    <!-- <tbody>
+                                        <tr>
+                                            <td>Daniel Danny</td>
+                                            <td>danny.daniel@gmail.com</td>
+                                            <td>Pass1234</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Samuel</td>
+                                            <td>samuel@gmail.com</td>
+                                            <td>Pass1234</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Jack</td>
+                                            <td>jack@gmail.com</td>
+                                            <td>Pass1234</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Eureka</td>
+                                            <td>eureka@gmail.com</td>
+                                            <td>Pass1234</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Pinky</td>
+                                            <td>pinky@gmail.com</td>
+                                            <td>Pass1234</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Mishti</td>
+                                            <td>mishti@gmail.com</td>
+                                            <td>Pass1234</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Puneet</td>
+                                            <td>puneet@gmail.com</td>
+                                            <td>Pass1234</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nick</td>
+                                            <td>nick@gmail.com</td>
+                                            <td>Pass1234</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Danika</td>
+                                            <td>danika@gmail.com</td>
+                                            <td>Pass1234</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Vishakha</td>
+                                            <td>vishakha@gmail.com</td>
+                                            <td>Pass1234</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nitin</td>
+                                            <td>ni3@gmail.com</td>
+                                            <td>Pass1234</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Latika</td>
+                                            <td>latika@gmail.com</td>
+                                            <td>Pass1234</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Kaavya</td>
+                                            <td>kaavya@gmail.com</td>
+                                            <td>Pass1234</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ishika</td>
+                                            <td>ishika@gmail.com</td>
+                                            <td>Pass1234</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Veronika</td>
+                                            <td>veronika@gmail.com</td>
+                                            <td>Pass1234</td>
+                                        </tr>
+                                    </tbody> -->
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        });
+    </script> -->
+
+    <script src="/src/js/promise.js"></script>
+    <script src="/src/js/fetch.js"></script>
+    <script src="/src/js/idb.js"></script>
+    <script src="/src/js/utility.js"></script>
+    <script src="/src/js/app.js"></script>
+    <script src="/src/pointes_aux_sables/table.js"></script>
+</body>
+
+</html>
