@@ -2,53 +2,95 @@
 <html>
 
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // var lo = document.getElementById('logout-link');
+
+            // if (lo) {
+            //     console.log('exixst');
+            // }
+            // else {
+            //     console.log('NOT exixst');
+            // }
+
+            // lo.addEventListener('click', function(){
+            //     console.log("logout from sidebar");
+            // })
+            //$('#logout-link').click(function (event) {
+
+            // event.preventDefault();
+            // var id = $(this).attr('id');
+            // console.log(id);
+
+            // if (id === 'logout-link') {
+            //     console.log('logout clicked ');
+
+            // auth.signOut()
+            //     .then(() => {
+
+
+            //         console.log("User logged out ");
+            //     });
+            //}
+            // })
+        });
+    </script>
 </head>
+
+
 
 <body>
     <div id="mySidebar" class="sidebar-new">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <ul class="nav">
+        <ul class="nav" id="nav-list">
+            <li class="nav-item active" id="home-link">
             <li class="nav-item active">
                 <a class="nav-link" href="/index.html">
                     <p>Home</p>
                 </a>
             </li>
-            <li class="nav-item active  ">
+            <li class="nav-item active " id="pas-link">
                 <a class="nav-link" href="/src/pointes_aux_sables/stock_pointes_aux_sables.html">
                     <p>Stock Pointes-Aux-Sables</p>
                 </a>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item " id="intermart-link">
                 <a class="nav-link" href="/src/intermart/to_buy_intermart.html">
                     <p>Intermart Shopping</p>
                 </a>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item " id="call-link">
                 <a class="nav-link" href="/src/call_order/call_order.html">
                     <p>Order via Call</p>
                 </a>
             </li>
-            <li class="nav-item ">
+            <li class="nav-item " id="taiwan-link">
                 <a class="nav-link" href="/src/taiwan/order_taiwan.html">
                     <p>Taiwan</p>
                 </a>
             </li>
-            <li class="nav-item enable-notifications">
+            <li class="nav-item enable-notifications" id="notif-link">
                 <a class="nav-link" href="#">
                     <p>Enable Notifications</p>
                 </a>
             </li>
+            <li class="nav-item " id="logout-link">
+                <a class="nav-link" href="javascript:void(0)">
+                    <p>Log out</p>
+                </a>
+            </li>
+
         </ul>
     </div>
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top" id="main">
         <div class="container-fluid">
-            <i class="navbar-toggler openbtn material-icons" style="padding: 15px;" data-toggle="collapse"
-                aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation"
-                onclick="openNav()">menu
-            </i>
+            <a href="javascript:void(0)" onclick="openNav()">
+                <i class="navbar-toggler openbtn material-icons" style="padding: 15px;" data-toggle="collapse"
+                    aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">menu
+                </i>
+            </a>
 
             <div class="collapse navbar-collapse justify-content-end">
                 <form class="navbar-form">
@@ -99,7 +141,20 @@
     </nav>
     <!-- End Navbar -->
 
-    <script src="/src/js/sidebar.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+
+
+    <script type="text/javascript" src="/src/js/auth.js"></script>
+    <script type="text/javascript" src="/src/js/sidebar.js"></script>
+
+
+
+
 
 </body>
 
