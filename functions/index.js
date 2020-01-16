@@ -1,4 +1,3 @@
-
 var functions = require('firebase-functions');
 var admin = require('firebase-admin');
 var cors = require('cors')({ origin: true });
@@ -15,7 +14,9 @@ admin.initializeApp({
     databaseURL: 'https://bubble-tastea-management.firebaseio.com/'
 })
 
-exports.storeOrderTaiwan = functions.https.onRequest(function (request, response) {
+var func = admin.functions();
+
+exports.storeOrderTaiwan = func.https.onRequest(function (request, response) {
     cors(request, response, function () {
         var id_item = request.body.name + " (" + request.body.id + ")";
         admin.database().ref('Taiwan').push({
@@ -62,6 +63,24 @@ exports.storeOrderTaiwan = functions.https.onRequest(function (request, response
                 response.json({ error: err });
             })
     })
+});
+
+exports.addAdminRole = func.https.onCall((data, context) => {
+    // Get User and add cutom claims (admin)
+    return admin.auth().getUserByEmail(data.email)
+        .then(user => {
+            return admin.auth().setCustomUserClaims(user.uid, {
+                admin: true
+            })
+        })
+        .then(() => {
+            return{
+                message: `Success! ${data.email} has been made an admin`
+            }
+        })
+        .catch (err => {
+            return err;
+        });
 });
 
 
