@@ -406,10 +406,10 @@
     </script>
 
     <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
-	<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
-	<!-- Add Firebase products that you want to use -->
-	<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
 
     <script src="/src/js/promise.js"></script>
     <script src="/src/js/fetch.js"></script>
@@ -426,33 +426,26 @@
             $('#load-sidebar').load('/sidebar.html #mySidebar');
             $('#load-footer').load('/footer.html #myFooter');
         });
+
         function openNav() {
-			document.getElementById('mySidebar').style.width = "250px";
+            document.getElementById('mySidebar').style.width = "250px";
 
-			$('ul.nav li').click(function (event) {
-				event.preventDefault();
-				var id = $(this).attr('id');
-				console.log(id);
+            $('#logout-link').click(function (event) {
+                event.preventDefault();
+                var id = $(this).attr('id');
+                console.log(id);
 
-				if (id === 'logout-link') {
-					console.log('logout clicked ');
+                if (id === 'logout-link') {
+                    console.log('logout clicked ');
 
-					authLogout ();
-					event.preventDefault();
+                    authLogout();
+                }
+            })
+        }
 
-					// auth.signOut()
-					//     .then(() => {
-
-
-					//         console.log("User logged out ");
-					//     });
-				}
-			})
-		}
-
-		function closeNav() {
-			document.getElementById('mySidebar').style.width = "0";
-		}
+        function closeNav() {
+            document.getElementById('mySidebar').style.width = "0";
+        }
     </script>
 </body>
 

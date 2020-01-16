@@ -227,7 +227,7 @@
 			<div class="content">
 				<div class="container-fluid">
 					<div class="row">
-						<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="col-lg-3 col-md-6 col-sm-6 logged-in">
 							<div class="card card-stats">
 								<a href="/src/pointes_aux_sables/stock_pointes_aux_sables.html">
 									<div class="card-header card-header-icon">
@@ -243,7 +243,7 @@
 								</a>
 							</div>
 						</div>
-						<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="col-lg-3 col-md-6 col-sm-6 logged-in">
 							<div class="card card-stats">
 								<a href="/src/intermart/to_buy_intermart.html">
 									<div class="card-header card-header-icon">
@@ -259,7 +259,7 @@
 								</a>
 							</div>
 						</div>
-						<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="col-lg-3 col-md-6 col-sm-6 logged-in">
 							<div class="card card-stats">
 								<a href="/src/call_order/call_order.html">
 									<div class="card-header card-header-icon">
@@ -275,7 +275,7 @@
 								</a>
 							</div>
 						</div>
-						<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="col-lg-3 col-md-6 col-sm-6 logged-in">
 							<div class="card card-stats">
 								<a href="/src/contact/contact.html">
 									<div class="card-header card-header-icon">
@@ -292,7 +292,7 @@
 								</a>
 							</div>
 						</div>
-						<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="col-lg-3 col-md-6 col-sm-6 logged-in">
 							<div class="card card-stats">
 								<a href="/src/taiwan/order_taiwan.html">
 									<div class="card-header card-header-icon">
@@ -310,7 +310,7 @@
 								</a>
 							</div>
 						</div>
-						<div class="col-lg-3 col-md-6 col-sm-6">
+						<div class="col-lg-3 col-md-6 col-sm-6 admin" style="display: none">
 							<div class="card card-stats">
 								<a href="/offline.html">
 									<div class="card-header card-header-icon">
@@ -1153,20 +1153,22 @@ Footer
 	<!-- Add Firebase products that you want to use -->
 	<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-functions.js"></script>
 
 	<script src="/src/js/promise.js"></script>
 	<script src="/src/js/fetch.js"></script>
 	<script src="/src/js/idb.js"></script>
 	<script src="/src/js/utility.js"></script>
 	<script src="/src/js/app.js"></script>
-	<script src="/src/js/sidebar.js"></script>
 	<script src="/src/js/auth.js"></script>
+	<script src="/src/js/sidebar.js"></script>
+	<script src="/src/js/home.js"></script>
 
 	<script>
 		function openNav() {
 			document.getElementById('mySidebar').style.width = "250px";
 
-			$('ul.nav li').click(function (event) {
+			$('#logout-link').click(function (event) {
 				event.preventDefault();
 				var id = $(this).attr('id');
 				console.log(id);
@@ -1174,15 +1176,7 @@ Footer
 				if (id === 'logout-link') {
 					console.log('logout clicked ');
 
-					authLogout ();
-					event.preventDefault();
-
-					// auth.signOut()
-					//     .then(() => {
-
-
-					//         console.log("User logged out ");
-					//     });
+					authLogout();
 				}
 			})
 		}
@@ -1190,8 +1184,36 @@ Footer
 		function closeNav() {
 			document.getElementById('mySidebar').style.width = "0";
 		}
+
 	</script>
 
+	<!-- Modal -->
+	<div class="modal fade" id="modal-make-admin" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="exampleModalLabel">Make a user an admin</h4>
+					<button type="button" id="modal-close-btn" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body" id="modal-body-content">
+					<form class="login100-form validate-form" id="make-admin-form">
+						<div class="wrap-input100 rs1 validate-input" data-validate="Email address required">
+							<input class="input100" type="email" name="email" id="make-admin-email"
+								placeholder="Email address">
+						</div>
+						<div class="container-login100-form-btn">
+							<button class="login100-form-btn" id="btn-make-admin">
+								Make an admin
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 </body>

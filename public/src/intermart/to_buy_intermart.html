@@ -168,6 +168,10 @@
             padding: 0px 10px;
             border: 2px solid #ab47bc;
         }
+
+        th {
+            color: blanchedalmond;
+        }
     </style>
 
 
@@ -506,7 +510,7 @@
         function openNav() {
 			document.getElementById('mySidebar').style.width = "250px";
 
-			$('ul.nav li').click(function (event) {
+			$('#logout-link').click(function (event) {
 				event.preventDefault();
 				var id = $(this).attr('id');
 				console.log(id);
@@ -514,16 +518,8 @@
 				if (id === 'logout-link') {
 					console.log('logout clicked ');
 
-					authLogout ();
-					event.preventDefault();
-
-					// auth.signOut()
-					//     .then(() => {
-
-
-					//         console.log("User logged out ");
-					//     });
-				}
+					authLogout();
+				}				
 			})
 		}
 

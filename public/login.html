@@ -105,7 +105,11 @@
     <script src="/src/js/utility.js"></script>
     <script src="/src/js/app.js"></script>
 
-
+    <script>
+        function authSignup(){
+            signupUser();
+        }
+    </script>
 
 
     <!-- Modal -->
@@ -129,7 +133,7 @@
                             <input class="input100" type="password" name="pass" id="signup-pass" placeholder="Password">
                         </div>
                         <div class="container-login100-form-btn">
-                            <button class="login100-form-btn" id="btn-signup">
+                            <button class="login100-form-btn" id="btn-signup" onclick="authSignup()">
                                 Sign up
                             </button>
                         </div>
