@@ -35,7 +35,7 @@ auth.onAuthStateChanged(user => {
 const signupform = document.getElementById('signup-form');
 
 // SIGN UP
-function signupUser(){
+function signupUser() {
     event.preventDefault();
 
     console.log('sigup function clicked');
@@ -94,7 +94,11 @@ $('#login-form').on('submit', (event) => {
             loginform.reset();
 
             window.location = "/index.html";
-        });
+        })
+        .catch((err) => {
+            var errorDisplay = document.getElementById('error-message');
+            errorDisplay.innerHTML = err.message;
+        })
 });
 
 //LOG OUT

@@ -14,9 +14,7 @@ admin.initializeApp({
     databaseURL: 'https://bubble-tastea-management.firebaseio.com/'
 })
 
-var func = admin.functions();
-
-exports.storeOrderTaiwan = func.https.onRequest(function (request, response) {
+exports.storeOrderTaiwan = functions.https.onRequest(function (request, response) {
     cors(request, response, function () {
         var id_item = request.body.name + " (" + request.body.id + ")";
         admin.database().ref('Taiwan').push({
@@ -65,7 +63,12 @@ exports.storeOrderTaiwan = func.https.onRequest(function (request, response) {
     })
 });
 
-exports.addAdminRole = func.https.onCall((data, context) => {
+exports.addAdminRole = functions.https.onCall((data, context) => {
+    // Secure the cloud functions so code cannot be altered via developer tool
+    if (context.auth.token.admin !== true){
+        return { error: "Only authorized user can add other admin!"};
+    }
+    
     // Get User and add cutom claims (admin)
     return admin.auth().getUserByEmail(data.email)
         .then(user => {
