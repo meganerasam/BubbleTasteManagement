@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
-        Make an admin
+        New user
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
         name='viewport' />
@@ -51,7 +51,7 @@
             background: #a33df7;
             /*letter-spacing: 3px;*/
             -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
-            -moz-box-shadow: 0px 5px 40px -10px rgba(255, 255, 255, 0.57);
+            -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
             box-shadow: 5px 40px -10px rgba(0, 0, 0, 0.57);
             /*transition: all 0.2s ease 0s;*/
         }
@@ -80,14 +80,6 @@
             border: 2px solid #ab47bc;
             margin: 0px 0px 15px 0px;
         }
-
-        input[id^="remove-admin-email"] {
-            background: #eee;
-            border-radius: 5px;
-            padding: 0px 10px;
-            border: 2px solid #ab47bc;
-            margin: 0px 0px 15px 0px;
-        }
     </style>
 </head>
 
@@ -107,41 +99,42 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header card-header-primary">
-                                <h4 class="card-title ">Make an user become an admin</h4>
+                                <h4 class="card-title ">Make an user beecome an admin</h4>
+                                <p class="card-category" id="date_call"></p>
+                                <script>
+                                    n = new Date();
+                                    y = n.getFullYear();
+                                    m = n.getMonth() + 1;
+                                    d = n.getDate();
+
+                                    document.getElementById("date_call").innerHTML = d + "/" + m + "/" + y;
+                                </script>
                             </div>
                             <div class="card-body">
-                                <form class="login100-form validate-form" id="make-admin-form">
+                                <form class="login100-form validate-form" id="new-user-form">
+                                    <div class="wrap-input100 rs1 validate-input"
+                                        data-validate="Please enter staff name">
+                                        <input class="input100" type="text" name="name" id="new-user-name"
+                                            placeholder="Name">
+                                    </div>
+                                    <div class="wrap-input100 rs1 validate-input"
+                                        data-validate="Please enter user phone number">
+                                        <input class="input100" type="number" name="phone" id="new-user-phone"
+                                            placeholder="Phone Number">
+                                    </div>
                                     <div class="wrap-input100 rs1 validate-input"
                                         data-validate="Email address required">
-                                        <input class="input100" type="email" name="email" id="make-admin-email"
+                                        <input class="input100" type="email" name="email" id="new-user-email"
                                             placeholder="Email address">
                                     </div>
-                                    <div class="container-login100-form-btn">
-                                        <button class="btn btn-primary" id="btn-make-admin" onclick="makeAdmin()">
-                                            Make an admin
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="card">
-                            <div class="card-header card-header-primary">
-                                <h4 class="card-title ">Deactivate user account</h4>
-                            </div>
-                            <div class="card-body">
-                                <form class="login100-form validate-form" id="remove-admin-form">
                                     <div class="wrap-input100 rs1 validate-input"
-                                        data-validate="Email address required">
-                                        <input class="input100" type="email" name="email" id="remove-admin-email"
-                                            placeholder="Email address">
+                                        data-validate="Please enter user password">
+                                        <input class="input100" type="password" name="pass" id="new-user-pass"
+                                            placeholder="password">
                                     </div>
                                     <div class="container-login100-form-btn">
-                                        <button class="btn btn-primary" id="btn-remove-admin" onclick="deactivateUser()">
-                                            Deactivate user account
+                                        <button class="btn btn-primary" id="btn-new-user" onclick="newUser()">
+                                            Create new user
                                         </button>
                                     </div>
                                 </form>
@@ -206,8 +199,6 @@
             $('#load-nav').load('/sidebar.html #main');
             $('#load-sidebar').load('/sidebar.html #mySidebar');
             $('#load-footer').load('/footer.html #myFooter');
-
-            // getAllUsers();
         });
 
         function openNav() {
@@ -230,18 +221,11 @@
             document.getElementById('mySidebar').style.width = "0";
         }
 
-        function makeAdmin() {
+        function newUser() {
             event.preventDefault();
-            console.log('add admin clicked ');
+            console.log('new user clicked ');
 
-            authMakeAdmin();
-        }
-
-        function deactivateUser() {
-            event.preventDefault();
-            console.log('remove admin clicked ');
-
-            authDeactivateUser();
+            signupUser();
         }
     </script>
 </body>

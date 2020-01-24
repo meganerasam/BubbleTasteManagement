@@ -14,9 +14,7 @@ admin.initializeApp({
     databaseURL: 'https://bubble-tastea-management.firebaseio.com/'
 })
 
-var func = admin.functions();
-
-exports.storeOrderTaiwan = func.https.onRequest(function (request, response) {
+exports.storeOrderTaiwan = functions.https.onRequest(function (request, response) {
     cors(request, response, function () {
         var id_item = request.body.name + " (" + request.body.id + ")";
         admin.database().ref('Taiwan').push({
@@ -65,7 +63,12 @@ exports.storeOrderTaiwan = func.https.onRequest(function (request, response) {
     })
 });
 
-exports.addAdminRole = func.https.onCall((data, context) => {
+exports.addAdminRole = functions.https.onCall((data, context) => {
+    // Secure the cloud functions so code cannot be altered via developer tool
+    if (context.auth.token.admin !== true) {
+        return { error: "Only authorized user can add other admin!" };
+    }
+
     // Get User and add cutom claims (admin)
     return admin.auth().getUserByEmail(data.email)
         .then(user => {
@@ -74,13 +77,54 @@ exports.addAdminRole = func.https.onCall((data, context) => {
             })
         })
         .then(() => {
-            return{
+            return {
                 message: `Success! ${data.email} has been made an admin`
             }
         })
-        .catch (err => {
+        .catch(err => {
             return err;
         });
+});
+
+exports.disableUser = functions.https.onCall((data, context) => {
+    console.log('disableUser')
+    // Secure the cloud functions so code cannot be altered via developer tool
+
+    if (context.auth.token.admin !== true) {
+        return { error: "Only authorized user can disable user account!" };
+    }
+
+    return admin.auth().getUserByEmail(data.email)
+        .then(user => {
+            return admin.auth().updateUser(user.uid, {
+                password: "Qwertyuiop",
+                disabled: true
+            })
+        })
+        .then(() => {
+            return{
+                message: `Success! ${data.email} account has been deactivated`
+            }
+        })
+        .catch (err => {
+            return console.log(err.message);
+        });
+
+
+    // return admin.auth().getUserByEmail(data.email)
+    //     .then(user => {
+    //         return admin.auth().setCustomUserClaims(user.uid, {
+    //             admin: null
+    //         })
+    //     })
+    //     .then(() => {
+    //         return{
+    //             message: `Success! ${data.email} is not an admin anymore`
+    //         }
+    //     })
+    //     .catch (err => {
+    //         return console.log(err.message);
+    //     });
 });
 
 

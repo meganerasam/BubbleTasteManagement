@@ -17,15 +17,17 @@ firebase.initializeApp(firebaseConfig);
 var auth = firebase.auth();
 var dbFirestore = firebase.firestore();
 
+
 //LISTEN TO AUTH STATE CHANGES
 auth.onAuthStateChanged(user => {
     if (user) {
         user.getIdTokenResult()
             .then(idTokenResult => {
+                console.log('user role: ' + idTokenResult.claims.admin);
                 user.admin = idTokenResult.claims.admin;
                 setupUI(user);
                 setupHomePage(user);
-            })
+            });
     }
     else {
         console.log('User status: logged out');
@@ -35,46 +37,29 @@ auth.onAuthStateChanged(user => {
 const signupform = document.getElementById('signup-form');
 
 // SIGN UP
-function signupUser(){
+function signupUser() {
     event.preventDefault();
 
     console.log('sigup function clicked');
 
     //Get user info (email and password)
-    var email = document.getElementById('signup-email').value;
-    var password = document.getElementById('signup-pass').value;
+    var email = document.getElementById('new-user-email').value;
+    var password = document.getElementById('new-user-pass').value;
+
+    var name = document.getElementById('new-user-name').value;
+    var phone = document.getElementById('new-user-phone').value;
 
     auth.createUserWithEmailAndPassword(email, password)
         .then(cred => {
-            event.preventDefault();
+            return dbFirestore.collection('users').doc(cred.user.uid).set({
+                name: name,
+                phone: phone,
+                email: email
+            });
+        }).then(() => {
             console.log(cred);
-            const modal = document.getElementById('modal-signup');
-            $('#modal-signup').modal('hide');
-            signupform.reset();
         });
 }
-
-
-// $('#signup-form').on('submit', (event) => {
-//     //Prevent default of refreshing page and losing data on click
-//     event.preventDefault();
-
-//     console.log('user signed in');
-//     //Get user info (email and password)
-//     // var email = signupform['signup-email'].value;
-//     // var password = signupform['signup-pass'].value;
-
-//     // //Sign up the user
-//     // auth.createUserWithEmailAndPassword(email, password)
-//     //     .then(cred => {
-//     //         event.preventDefault();
-//     //         console.log(cred);
-//     //         const modal = document.getElementById('modal-signup');
-//     //         //$('#modal-signup').modal('hide');
-//     //         signupform.reset();
-//     //     });
-// });
-
 
 // LOGIN
 const loginform = document.getElementById('login-form');
@@ -94,7 +79,11 @@ $('#login-form').on('submit', (event) => {
             loginform.reset();
 
             window.location = "/index.html";
-        });
+        })
+        .catch((err) => {
+            var errorDisplay = document.getElementById('error-message');
+            errorDisplay.innerHTML = err.message;
+        })
 });
 
 //LOG OUT
@@ -112,7 +101,7 @@ function authLogout() {
 
 }
 
-// MAKE AND ADMIN
+// MAKE AN ADMIN
 function authMakeAdmin() {
     event.preventDefault();
 
@@ -128,6 +117,37 @@ function authMakeAdmin() {
         });
 }
 
+// REMOVE ADMIN PRVIVILEGE
+function authDeactivateUser() {
+    event.preventDefault();
+
+    var toBeRemovedEmail = document.getElementById('remove-admin-email').value;
+    var disableUser = fun.httpsCallable('disableUser');
+
+    disableUser({
+        email: toBeRemovedEmail
+    })
+        .then(result => {
+            console.log('remove-admin.js ', result);
+        });
+}
+
+// GET LIST OF ALL USERS
+function getAllUsers() {
+
+    var user = auth.currentUser;
+    console.log('CurrentU ' + user);
+    // user.getIdTokenResult()
+    //     .then(idTokenResult => {
+    //         user.admin = idTokenResult.claims.admin;
+    //         if (user.admin) {
+    //             console.log('getAllUser is admin');
+    //             dbFirestore.collection('users').onSnapshot(snapshot => {
+    //                 setupListUser(snapshot.docs);
+    //             });
+    //         }
+    //     })
+}
 
 
 
