@@ -24,7 +24,17 @@ const setupUI = (user => {
             }
         }
     }
-    else{
+    else {
+        console.log('back to login');
+        window.location = '/login.html';
+    }
+});
+
+const checkLog = (user => {
+    if (user.uid) {
+            console.log('sidebar.js ' + user.uid);
+    }
+    else {
         window.location = '/login.html';
     }
 })
