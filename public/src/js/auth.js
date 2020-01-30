@@ -17,12 +17,11 @@ firebase.initializeApp(firebaseConfig);
 var auth = firebase.auth();
 var dbFirestore = firebase.firestore();
 
-
 //LISTEN TO AUTH STATE CHANGES
-auth.onAuthStateChanged(user => {
+auth.onAuthStateChanged(user => {   
     if (user) {
         user.getIdTokenResult()
-            .then(idTokenResult => {
+            .then(idTokenResult => {        
                 console.log('user role: ' + idTokenResult.claims.admin);
                 user.admin = idTokenResult.claims.admin;
                 setupUI(user);
@@ -30,9 +29,25 @@ auth.onAuthStateChanged(user => {
             });
     }
     else {
-        console.log('User status: logged out');
+        if (window.location.href == 'http://127.0.0.1:8005/login.html'){
+            console.log('please log in');
+        }
+        else{
+            window.location = '/login.html';
+        }
     }
+    
 });
+
+function getUserLoggedIn(){
+    return loggedUser;
+}
+
+// GET CURENT USER INFO
+function currentUserInfo(){
+    var nowUser = auth.currentUser;
+    console.log('is signed in ? ' + nowUser);
+}
 
 const signupform = document.getElementById('signup-form');
 
@@ -148,6 +163,7 @@ function getAllUsers() {
     //         }
     //     })
 }
+
 
 
 
