@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
-        New user
+        Send verification email
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
         name='viewport' />
@@ -99,54 +99,11 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header card-header-primary">
-                                <h4 class="card-title ">Add new staff member</h4>
-                                <p class="card-category" id="date_call"></p>
-                                <script>
-                                    n = new Date();
-                                    y = n.getFullYear();
-                                    m = n.getMonth() + 1;
-                                    d = n.getDate();
-
-                                    document.getElementById("date_call").innerHTML = d + "/" + m + "/" + y;
-                                </script>
+                                <h4 class="card-title ">Send verification email</h4>
                             </div>
-                            <div class="card-body" id="sigupform">
-                                <form class="login100-form validate-form" id="new-user-form">
-                                    <div class="wrap-input100 rs1 validate-input"
-                                        data-validate="Please enter staff name">
-                                        <input class="input100" type="text" name="name" id="new-user-name"
-                                            placeholder="Name">
-                                    </div>
-                                    <div class="wrap-input100 rs1 validate-input"
-                                        data-validate="Please enter user phone number">
-                                        <input class="input100" type="number" name="phone" id="new-user-phone"
-                                            placeholder="Phone Number">
-                                    </div>
-                                    <div class="wrap-input100 rs1 validate-input"
-                                        data-validate="Email address required">
-                                        <input class="input100" type="email" name="email" id="new-user-email"
-                                            placeholder="Email address">
-                                    </div>
-                                    <div class="wrap-input100 rs1 validate-input"
-                                        data-validate="Please enter user password">
-                                        <input class="input100" type="password" name="pass" id="new-user-pass"
-                                            placeholder="password">
-                                    </div>
-                                    <div class="container-login100-form-btn">
-                                        <button class="btn btn-primary" id="btn-new-user" onclick="newUser()">
-                                            Create new user
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-
-                            <div class="card-body" id="send_confirmation" style="display: none; text-align: center;">
+                            <div class="card-body">
                                 <p id="user_details"></p>
-                                <button class="btn btn-primary" id="btn-confirmation-email" onclick="sendVerificationEmail()">
-                                    Send confirmation link
-                                </button>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -234,16 +191,6 @@
             console.log('new user clicked ');
 
             signupUser();
-
-            document.getElementById("sigupform").style.display = "none";
-            document.getElementById("send_confirmation").style.display = "block";
-        }
-
-        function sendVerificationEmail(){
-            document.getElementById("sigupform").style.display = "block";
-            document.getElementById("send_confirmation").style.display = "none";
-
-            emailConfirmation();
         }
     </script>
 </body>

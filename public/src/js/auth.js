@@ -18,33 +18,36 @@ var auth = firebase.auth();
 var dbFirestore = firebase.firestore();
 
 //LISTEN TO AUTH STATE CHANGES
-auth.onAuthStateChanged(user => {   
+auth.onAuthStateChanged(user => {
     if (user) {
         user.getIdTokenResult()
-            .then(idTokenResult => {        
+            .then(idTokenResult => {
                 console.log('user role: ' + idTokenResult.claims.admin);
                 user.admin = idTokenResult.claims.admin;
                 setupUI(user);
                 setupHomePage(user);
             });
+
+        var email_verified = user.emailVerified;
+
+        console.log("Is User verified ? " + email_verified);
+    }
+    else if (window.location.href == 'http://127.0.0.1:8005/forgot_password.html'){
+        console.log('forgot password page');
     }
     else {
-        if (window.location.href == 'http://127.0.0.1:8005/login.html'){
+        if (window.location.href == 'http://127.0.0.1:8005/login.html') {
             console.log('please log in');
         }
-        else{
+        else {
             window.location = '/login.html';
         }
     }
-    
+
 });
 
-function getUserLoggedIn(){
-    return loggedUser;
-}
-
 // GET CURENT USER INFO
-function currentUserInfo(){
+function currentUserInfo() {
     var nowUser = auth.currentUser;
     console.log('is signed in ? ' + nowUser);
 }
@@ -75,6 +78,20 @@ function signupUser() {
             console.log(cred);
         });
 }
+
+// SEND EMAIL CONFIRMATION LINK
+function emailConfirmation() {
+    var user = auth.currentUser;
+
+    user.sendEmailVerification().then(function () {
+        // Email sent.
+        window.alert('Verification link sent');
+        window.location = '/login.html';
+    }).catch(function (error) {
+        // An error happened.
+    });
+}
+
 
 // LOGIN
 const loginform = document.getElementById('login-form');
@@ -147,22 +164,32 @@ function authDeactivateUser() {
         });
 }
 
-// GET LIST OF ALL USERS
-function getAllUsers() {
+// RESET PASSWORD
+const forgotpassform = document.getElementById('forgot-pass-form');
 
-    var user = auth.currentUser;
-    console.log('CurrentU ' + user);
-    // user.getIdTokenResult()
-    //     .then(idTokenResult => {
-    //         user.admin = idTokenResult.claims.admin;
-    //         if (user.admin) {
-    //             console.log('getAllUser is admin');
-    //             dbFirestore.collection('users').onSnapshot(snapshot => {
-    //                 setupListUser(snapshot.docs);
-    //             });
-    //         }
-    //     })
-}
+$('#forgot-pass-form').on('submit', (event) => {
+    //Prevent default of refreshing page and losing data on click
+    event.preventDefault();
+
+    //Get user info (email and password)
+    var email = forgotpassform['forgot-pass-email'].value;
+
+    if (email != "") {
+        auth.sendPasswordResetEmail(email)
+            .then(function () {
+                console.log(email);
+                window.alert('An email has been sent to you, please check and follow the instruction');
+                window.location = '/login.html';
+            })
+            .catch((err) => {
+                var errorDisplay = document.getElementById('error-message-forgot-pass');
+                errorDisplay.innerHTML = err.message;
+            })
+    }
+    else {
+        window.alert('Please enter an email first');       
+    }
+});
 
 
 
