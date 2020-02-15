@@ -4,24 +4,30 @@ var list = document.getElementById('nav-list');
 
 var userMenu = document.getElementsByClassName('logged-in');
 var adminMenu = document.getElementsByClassName('admin');
+var alwaysMenu = document.getElementsByClassName('always');
 
 const setupUI = (user => {
     if (user) {
-        if (user.admin) {
-            for (var i = 0; i < userMenu.length; i++) {
-                userMenu[i].style.display = 'block';
+        if (user.emailVerified) {
+            if (user.admin) {
+                for (var i = 0; i < userMenu.length; i++) {
+                    userMenu[i].style.display = 'block';
+                }
+                for (var i = 0; i < adminMenu.length; i++) {
+                    adminMenu[i].style.display = 'block';
+                }
             }
-            for (var i = 0; i < adminMenu.length; i++) {
-                adminMenu[i].style.display = 'block';
+            else {
+                for (var i = 0; i < userMenu.length; i++) {
+                    userMenu[i].style.display = 'block';
+                }
+                for (var i = 0; i < adminMenu.length; i++) {
+                    adminMenu[i].style.display = 'none';
+                }
             }
         }
-        else {
-            for (var i = 0; i < userMenu.length; i++) {
-                userMenu[i].style.display = 'block';
-            }
-            for (var i = 0; i < adminMenu.length; i++) {
-                adminMenu[i].style.display = 'none';
-            }
+        for (var i = 0; i < alwaysMenu.length; i++) {
+            alwaysMenu[i].style.display = 'block';
         }
     }
     else {
@@ -32,7 +38,7 @@ const setupUI = (user => {
 
 const checkLog = (user => {
     if (user.uid) {
-            console.log('sidebar.js ' + user.uid);
+        console.log('sidebar.js ' + user.uid);
     }
     else {
         window.location = '/login.html';

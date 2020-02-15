@@ -225,7 +225,7 @@
 			</nav> -->
 			<!-- End Navbar -->
 			<div class="content">
-				<div class="container-fluid">
+				<div class="container-fluid" id="content_verified">
 					<div class="row">
 						<div class="col-lg-3 col-md-6 col-sm-6 logged-in">
 							<div class="card card-stats">
@@ -713,6 +713,21 @@
 						</div>
 					</div>
 				</div>
+				<div class="container-fluid" id="content_not_verified" style="display: none; text-align: center;">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-body">
+								<p id="user_details">
+									Please cofirme your email address to view content
+								</p>
+								<button class="btn btn-primary" id="btn-confirmation-email"
+									onclick="sendVerificationEmail()">
+									Send confirmation link
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 
 
@@ -1166,7 +1181,7 @@ Footer
 
 	<script>
 		function openNav() {
-			document.getElementById('mySidebar').style.width = "250px";
+			document.getElementById('mySidebar').style.width = "270px";
 
 			$('#logout-link').click(function (event) {
 				event.preventDefault();
@@ -1183,6 +1198,13 @@ Footer
 
 		function closeNav() {
 			document.getElementById('mySidebar').style.width = "0";
+		}
+
+		function sendVerificationEmail() {
+			// document.getElementById("sigupform").style.display = "block";
+			// document.getElementById("send_confirmation").style.display = "none";
+
+			emailConfirmation();
 		}
 	</script>
 
