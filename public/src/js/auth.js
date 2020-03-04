@@ -16,6 +16,152 @@ firebase.initializeApp(firebaseConfig);
 // Make auth and firestore references
 var auth = firebase.auth();
 var dbFirestore = firebase.firestore();
+var messaging = firebase.messaging();
+
+
+messaging.usePublicVapidKey('BHTbhExI8YZcPROII-iGAhgQCJTBQZGpvLtizaj5gOfzGtYn1zXZm0lMPzAMszFGBNhnQUmSILm5Z6N3Ss1g0JY');
+
+function sendNotif() {
+    //REQUEST PERMISSION FROM USER TO ACCEPT NOTIFICATION FROM FCM
+    messaging.requestPermission()
+        .then(function () {
+            console.log("FCM permission");
+            messaging.getToken()
+                .then(function (currentToken) {
+                    console.log("Current token: " + currentToken);
+                })
+        })
+        .catch(function (err) {
+            console.log('Error from FCM ' + err.message);
+        })
+
+    // messaging.onMessage(function (payload) {
+    //     console.log('onMessage: ' + payload);
+    //})
+}
+
+// CHECK NOTIFICATION PERMISSION
+function checkNotifPermissions() {
+    if (Notification.permission != "granted") {
+        messaging.requestPermission()
+            .then(function () {
+                console.log("FCM permission");
+                messaging.getToken()
+                    .then(function (currentToken) {
+                        userToken = currentToken;
+                        console.log("Current token (not granted): " + currentToken);
+                        console.log("User token (not granted): " + userToken);
+                    })
+            })
+            .catch(function (err) {
+                console.log('Error from FCM ' + err.message);
+            })
+    }
+    else {
+        console.log("FCM permission else: " + Notification.permission);
+        messaging.getToken()
+            .then(function (currentToken) {
+                userToken = currentToken;
+                console.log("Current token: " + currentToken);
+                console.log("User token: " + userToken);
+            })
+    }
+
+}
+
+messaging.onTokenRefresh(function () {
+    messaging.getToken().then(function (refreshedToken) {
+        console.log('Token refreshed.');
+        // Indicate that the new Instance ID token has not yet been sent to the
+        // app server.
+        setTokenSentToServer(false);
+
+        userID = auth.currentUser.uid;
+
+        firebase.database().ref('fcmtoken/' + userID).update({
+            fcmToken: currentToken
+        });
+
+        // Send Instance ID token to app server.
+        sendTokenToServer(refreshedToken);
+    }).catch(function (err) {
+        console.log('Unable to retrieve refreshed token ', err);
+        showToken('Unable to retrieve refreshed token ', err);
+    });
+});
+
+// CHECK NOTIFICATION PERMISSION 2
+function checkNotifPermissions2() {
+    if (Notification.permission != "granted") {
+        messaging.requestPermission()
+            .then(function () {
+                console.log("FCM permission");
+                return messaging.getToken()
+            })
+            .then(function (token) {
+                console.log('Notif 2 ' + token);
+                if (token) {
+                    sendTokenToServer(token);
+                }
+            })
+            .catch(function (err) {
+                console.log('Error from FCM ' + err.message);
+                showToken('Error retrieving Instance ID token. ', err);
+                setTokenSentToServer(false);
+            })
+    }
+    else {
+        console.log("FCM permission else: " + Notification.permission);
+        messaging.getToken()
+            .then(function (token) {
+                console.log('Notif 2 else ' + token);
+
+                if (token) {
+                    sendTokenToServer(token);
+                }
+            })
+            .catch(function (err) {
+                console.log('Error from FCM ' + err.message);
+                showToken('Error retrieving Instance ID token. ', err);
+                setTokenSentToServer(false);
+            })
+    }
+}
+
+messaging.onMessage(function (payload) {
+    console.log("onMessage " + payload);
+})
+
+function sendTokenToServer(currentToken) {
+    if (!isTokenSentToServer()) {
+        console.log('Sending token to server...');
+        // TODO(developer): Send the current token to your server.
+        userID = auth.currentUser.uid;
+
+        firebase.database().ref('fcmtoken/' + userID).set({
+            userID: userID,
+            fcmToken: currentToken
+        });
+        setTokenSentToServer(true);
+    } else {
+        console.log('Token already sent to server so won\'t send it again ' +
+            'unless it changes');
+    }
+}
+
+function isTokenSentToServer() {
+    return window.localStorage.getItem('sentToServer') == 1;
+}
+
+function setTokenSentToServer(sent) {
+    window.localStorage.setItem('sentToServer', sent ? 1 : 0);
+}
+
+function showToken(currentToken) {
+    // Show token in console and UI.
+    console.log("Show token method " + currentToken);
+}
+
 
 //LISTEN TO AUTH STATE CHANGES
 auth.onAuthStateChanged(user => {
@@ -32,7 +178,7 @@ auth.onAuthStateChanged(user => {
 
         console.log("Is User verified ? " + email_verified);
     }
-    else if (window.location.href == 'http://127.0.0.1:8005/forgot_password.html'){
+    else if (window.location.href == 'http://127.0.0.1:8005/forgot_password.html') {
         console.log('forgot password page');
     }
     else {
@@ -45,12 +191,6 @@ auth.onAuthStateChanged(user => {
     }
 
 });
-
-// GET CURENT USER INFO
-function currentUserInfo() {
-    var nowUser = auth.currentUser;
-    console.log('is signed in ? ' + nowUser);
-}
 
 const signupform = document.getElementById('signup-form');
 
@@ -111,11 +251,34 @@ $('#login-form').on('submit', (event) => {
             loginform.reset();
 
             window.location = "/index.html";
+
+            // dbFirestore.collection('users').doc(logUser.uid).update({
+            //     registrationToken: userToken
+            // }).then(() => {
+            //     console.log("Frank food updated");
+            // }).catch((err) => {
+            //     console.log("Frank food updated error: " + err.message);
+            // })
+
         })
         .catch((err) => {
             var errorDisplay = document.getElementById('error-message');
-            errorDisplay.innerHTML = err.message;
-        })
+            errorDisplay.innerHTML = "This is an error message " + err.message;
+        });
+
+
+    // messaging.requestPermission()
+    //     .then(function () {
+    //         console.log("FCM permission");
+    //         messaging.getToken()
+    //             .then(function (currentToken) {
+    //                 console.log("Current token: " + currentToken);
+
+    //             })
+    //     })
+    //     .catch(function (err) {
+    //         console.log('Error from FCM ' + err.message);
+    //     })
 });
 
 //LOG OUT
@@ -187,10 +350,43 @@ $('#forgot-pass-form').on('submit', (event) => {
             })
     }
     else {
-        window.alert('Please enter an email first');       
+        window.alert('Please enter an email first');
     }
 });
 
+//GET REGISTRATION TOKEN FOR NOTIFICATION
+function getNotifToken() {
+    var logUser = auth.currentUser;
+    var userDoc = dbFirestore.collection('users').doc(logUser.uid);
+    var userToken;
+
+    if (Notification.permission != "granted") {
+        messaging.requestPermission()
+            .then(function () {
+                console.log("FCM permission");
+                messaging.getToken()
+                    .then(function (currentToken) {
+                        userToken = currentToken;
+                        console.log("Current token (not granted): " + currentToken);
+                    })
+            })
+            .catch(function (err) {
+                console.log('Error from FCM ' + err.message);
+            })
+    }
+    else {
+        messaging.getToken()
+            .then(function (currentToken) {
+                userToken = currentToken;
+                console.log("Current token: " + currentToken);
+            })
+    }
+
+    console.log("Current token (end): " + currentToken);
 
 
+    console.log("user id: " + logUser.uid);
+
+    return userToken;
+}
 

@@ -17,6 +17,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- CSS Files -->
     <link href="/src/css/material-index.css" rel="stylesheet" />
+    <link href="/manifest.json" rel="manifest">
+
+    <!-- Additional parameters for Safori and iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Bubble Tastea">
+	<link rel="apple-touch-icon" href="/src/images/icons/bubble_144x144.png" sizes="144x144">
+	<link rel="apple-touch-icon" href="/src/images/icons/logo_48x48.png" sizes="48x48">
+	<link rel="apple-touch-icon" href="/src/images/icons/logo_128x128.png" sizes="128x128">
+	<link rel="apple-touch-icon" href="/src/images/icons/logo_256x256b.png" sizes="256x256">
 
     <script src="/sidebar.html"></script>
 
@@ -410,6 +420,9 @@
     <!-- Add Firebase products that you want to use -->
     <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-functions.js"></script>
 
     <script src="/src/js/promise.js"></script>
     <script src="/src/js/fetch.js"></script>
@@ -419,6 +432,7 @@
     <script src="/src/taiwan/order_taiwan.js"></script>
     <script src="/src/js/sidebar.js"></script>
     <script src="/src/js/auth.js"></script>
+    <script src="/src/js/init.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -445,6 +459,10 @@
 
         function closeNav() {
             document.getElementById('mySidebar').style.width = "0";
+        }
+
+        function enableNotif(){
+           askForNotificationPermission();
         }
     </script>
 </body>

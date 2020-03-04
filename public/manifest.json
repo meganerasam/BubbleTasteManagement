@@ -1,12 +1,30 @@
 {
-    "name": "First Bubble Tastea App",
+    "name": "Bubble Tastea - Inventory tracker",
     "short_name": "Bubble Tastea",
-    "start_url": ".",
+    "start_url": "/login.html",
+    "scope": ".",
     "display": "standalone",
+    "background_color": "#000",
+    "theme_color": "#000",
     "orientation": "portrait",
     "dir": "ltr",
     "lang": "en-US",
     "icons": [
+        {
+            "src": "/src/images/icons/logo_48x48.png",
+            "type": "image/png",
+            "sizes": "48x48"
+        },
+        {
+            "src": "/src/images/icons/bubble_144x144.png",
+            "type": "image/png",
+            "sizes": "144x144"
+        },
+        {
+            "src": "/src/images/icons/logo_256x256.png",
+            "type": "image/png",
+            "sizes": "256x256"
+        }
         
     ]
 }
