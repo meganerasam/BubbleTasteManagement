@@ -20,6 +20,7 @@
 
     <!-- CSS Files -->
     <link href="/src/css/material-index.css" rel="stylesheet" />
+    <link href="/manifest.json" rel="manifest">
 
     <!--#include file="/sidebar.html" -->
     <!--#include file="/footer.html" -->
@@ -489,7 +490,10 @@
 	<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
 	<!-- Add Firebase products that you want to use -->
 	<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
-	<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-functions.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
 
     <script src="/src/js/promise.js"></script>
     <script src="/src/js/fetch.js"></script>
@@ -499,6 +503,7 @@
     <script src="/src/intermart/to_buy_intermart.js"></script>
     <script src="/src/js/sidebar.js"></script>
     <script src="/src/js/auth.js"></script>
+    <script src="/src/js/init.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -525,7 +530,11 @@
 
 		function closeNav() {
 			document.getElementById('mySidebar').style.width = "0";
-		}
+        }
+        
+        function enableNotif(){
+           askForNotificationPermission();
+        }
     </script>
 
     <!-- Modal -->

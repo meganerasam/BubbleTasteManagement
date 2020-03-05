@@ -21,7 +21,17 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 	<!-- CSS Files -->
 	<link href="../src/css/material-index.css" rel="stylesheet" />
-	<link href="/manifest.json" ref="manifest">
+	<link href="/manifest.json" rel="manifest">
+
+	<!-- Additional parameters for Safori and iOS -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="Bubble Tastea">
+	<link rel="apple-touch-icon" href="/src/images/icons/bubble_144x144.png" sizes="144x144">
+	<link rel="apple-touch-icon" href="/src/images/icons/logo_48x48.png" sizes="48x48">
+	<link rel="apple-touch-icon" href="/src/images/icons/logo_128x128.png" sizes="128x128">
+	<link rel="apple-touch-icon" href="/src/images/icons/logo_256x256b.png" sizes="256x256">
+
 
 	<!--#include file="sidebar.html" -->
 	<!--#include file="footer.html" -->
@@ -54,6 +64,9 @@
 			$('#load-nav').load('sidebar.html #main');
 			$('#load-sidebar').load('sidebar.html #mySidebar');
 			$('#load-footer').load('footer.html #myFooter');
+
+			//checkNotifPermissions2();
+			askForNotificationPermission2();
 		});
 	</script>
 </head>
@@ -1169,6 +1182,8 @@ Footer
 	<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-functions.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-messaging.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
 
 	<script src="/src/js/promise.js"></script>
 	<script src="/src/js/fetch.js"></script>
@@ -1178,6 +1193,7 @@ Footer
 	<script src="/src/js/auth.js"></script>
 	<script src="/src/js/sidebar.js"></script>
 	<script src="/src/js/home.js"></script>
+	<script src="/src/js/init.js"></script>
 
 	<script>
 		function openNav() {
@@ -1205,6 +1221,28 @@ Footer
 			// document.getElementById("send_confirmation").style.display = "none";
 
 			emailConfirmation();
+		}
+
+		function enableNotif() {
+			//askForNotificationPermission();
+			checkNotifPermissions2();
+		}
+
+		function installOnHome() {
+			var buttonInstall = document.getElementById('install-app-link');
+
+			buttonInstall.addEventListener('click', (e) => {
+				// Show the install prompt
+				deferredPrompt.prompt();
+				// Wait for the user to respond to the prompt
+				deferredPrompt.userChoice.then((choiceResult) => {
+					if (choiceResult.outcome === 'accepted') {
+						console.log('User accepted the install prompt');
+					} else {
+						console.log('User dismissed the install prompt');
+					}
+				})
+			});
 		}
 	</script>
 

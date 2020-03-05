@@ -50,9 +50,14 @@
                 </a>
             </li>
             <li class="nav-item enable-notifications logged-in" style="display: none" id="notif-link">
-                <a class="nav-link" href="#">
+                <button class="nav-link" onclick="enableNotif()">
                     <p>Enable Notifications</p>
-                </a>
+                </button>
+            </li>
+            <li class="nav-item logged-in" style="display: none" id="install-app-link">
+                <button class="nav-link" onclick="installOnHome()">
+                    <p>Install app</p>
+                </button>
             </li>
             <li class="nav-item always" style="display: none" id="logout-link">
                 <a class="nav-link" href="javascript:void(0)">
@@ -128,10 +133,14 @@
     <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-functions.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
 
 
     <script type="text/javascript" src="/src/js/auth.js"></script>
     <script type="text/javascript" src="/src/js/sidebar.js"></script>
+    <script src="/src/js/init.js"></script>
+
 </body>
 
 </html>
