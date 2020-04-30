@@ -13,7 +13,7 @@
     "http-server": "^0.10.0"
   },
   "dependencies": {
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "twilio": "^3.39.4"
   }
 }
